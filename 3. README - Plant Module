@@ -1,6 +1,6 @@
 ------------------------------------POST----------------------------------------------
 1. Add Plant : Method "POST"
-2. URL: http://localhost:9092/plants/addPlant
+2. URL: http://localhost:9092/plantsModule/addPlant
 3. INPUT: 
    Body -> Raw -> JSON
    {
@@ -19,15 +19,15 @@
 	
 ------------------------------------GET----------------------------------------------
 1. Get Plant By Id : Method "GET"
-2. URL: http://localhost:9092/plants/viewPlant/id/1
+2. URL: http://localhost:9092/plantsModule/getPlant/1
 
 1. Get All Plants : Method "GET"
-2. URL: http://localhost:9092/plants/viewAllPlants	
+2. URL: http://localhost:9092/plantsModule/getAllPlants	
 
 ------------------------------------UPDATE----------------------------------------------
 
 1. Update Plant : Method "PUT"
-2. URL: http://localhost:9092/plants/updatePlant/id/7
+2. URL: http://localhost:9092/plantsModule/UpdatePlant/1
 3. INPUT: 
    Body -> Raw -> JSON
    {
@@ -46,5 +46,5 @@
 	
 ------------------------------------DELETE----------------------------------------------
 1. Delete Plant : Method "DELETE"
-2. URL:	http://localhost:9092/plants/deletePlant/id/7
+2. URL:	http://localhost:9092/plantsModule/deletePlant/4
 	

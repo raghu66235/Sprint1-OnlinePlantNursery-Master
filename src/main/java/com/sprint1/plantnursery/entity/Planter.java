@@ -9,7 +9,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /*Controller Class for Planter Controller
-Created By: Pruthvi Tilwankar
+Created By: Arigela Raghuram
 */
 
 @Entity
@@ -26,14 +26,6 @@ public class Planter {
 	private int planterStock;
 	private int planterCost;
 	
-	@OneToMany(mappedBy="planter",cascade=CascadeType.ALL)
-	private List<Plant> plants;
-	
-	@OneToMany(mappedBy="planter",cascade=CascadeType.ALL)
-	private List<OrderTable> order;
-	
-	@OneToMany(mappedBy="planter",cascade=CascadeType.ALL)
-	private List<Seed> seeds;
 
 	
 	public Planter() {
@@ -41,13 +33,6 @@ public class Planter {
 		// TODO Auto-generated constructor stub
 	}
 
-//	public Seed getSeeds() {
-//		return seeds;
-//	}
-//
-//	public void setSeeds(Seed seeds) {
-//		this.seeds = seeds;
-//	}
 
 	public int getPlanterId() {
 		return planterId;
@@ -121,14 +106,7 @@ public class Planter {
 				+ "]";
 	}
 
-//	public Plant getPlants() {
-//		return plants;
-//	}
-//
-//	public void setPlants(Plant plants) {
-//		this.plants = plants;
-//	}
-	
+
 	
 
 }

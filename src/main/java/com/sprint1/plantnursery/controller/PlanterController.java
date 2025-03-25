@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,9 +18,9 @@ import com.sprint1.plantnursery.entity.Planter;
 import com.sprint1.plantnursery.service.IPlanterService;
 
 /*Controller Class for Planter Controller
-Created By: Pruthvi Tilwankar
+Created By:Arigela Raghuram
 */
-
+@CrossOrigin(origins="http://localhost:3000")
 @RestController
 @RequestMapping("/planter")
 public class PlanterController {
@@ -40,8 +41,8 @@ public class PlanterController {
 
 	@PostMapping("/addPlanter")
 	public ResponseEntity<Planter> addPlanter(@RequestBody Planter planter) {
-		planter = planterService.addPlanter(planter);
-		return new ResponseEntity<Planter>(planter, HttpStatus.CREATED);
+		Planter planter1 = planterService.addPlanter(planter);
+		return new ResponseEntity<Planter>(planter1, HttpStatus.CREATED);
 	}
 
     /****************************
@@ -86,9 +87,9 @@ public class PlanterController {
 	 * 
 	 ****************************/
 
-	@PutMapping("/updatePlanter")
-	public ResponseEntity<Planter> update(@RequestBody Planter planter) {
-		Planter newPlanter = planterService.updatePlanter(planter);
+	@PutMapping("/updatePlanter/{planterId}")
+	public ResponseEntity<Planter> update(@RequestBody Planter planter,@PathVariable("planterId") int id ) {
+		Planter newPlanter = planterService.updatePlanter(planter,id);
 		return new ResponseEntity<Planter>(newPlanter, HttpStatus.OK);
 	}
 
@@ -103,9 +104,16 @@ public class PlanterController {
 	 ****************************/
 
 	@DeleteMapping("/deletePlanter/id/{planterId}")
-	public ResponseEntity<Planter> deletePlanter(@PathVariable int planterId) {
+	public ResponseEntity<String> deletePlanter(@PathVariable int planterId) {
+	//public ResponseEntity<Planter> deletePlanter(@PathVariable int planterId) {
 		// logger.trace("deleting the whole plant");
-		return new ResponseEntity<Planter>(planterService.deletePlanter(planterId), HttpStatus.OK);
+		//return new ResponseEntity<Planter>(planterService.deletePlanter(planterId), HttpStatus.OK);
+		//Planter planter1=planterService.deletePlanter(planterId);// 
+		planterService.deletePlanter(planterId);
+		/*if(planter1==null) {
+			//return new ResponseEntity<String>("Id not found ",HttpStatus.NOT_FOUND);
+		}*/
+		return new ResponseEntity<String>("Planter Deleted with id : "+planterId,HttpStatus.OK);
 	}
 
 	
@@ -121,9 +129,11 @@ public class PlanterController {
 	@GetMapping("/planters/{min}/{max}")
 	public ResponseEntity<List<Planter>> getAllPlantersInRange(@PathVariable double min, @PathVariable double max) {
 		List<Planter> planters = planterService.viewAllPlanters(min, max);
-		if (planters.size() != 0)
+		if (planters != null) {
 			return new ResponseEntity<List<Planter>>(planters, HttpStatus.OK);
-		return new ResponseEntity<List<Planter>>(planters, HttpStatus.NOT_FOUND);
+		}
+		else { 
+			return new ResponseEntity<List<Planter>>(planters, HttpStatus.NOT_FOUND);
+		}
 	}
-
 }

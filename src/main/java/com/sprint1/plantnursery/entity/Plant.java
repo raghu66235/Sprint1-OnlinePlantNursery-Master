@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /*Entity Class for Plant
-Author : Disha Kale
+Author : Arigela Raghuram
 */
 
 @Entity
@@ -29,8 +29,8 @@ public class Plant {
 	private int plantsStock;
 	private double plantCost;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	private Planter planter;
+	//@ManyToOne(fetch=FetchType.LAZY)
+	//private Planter planter;
 	
 	
 //	public Planter getPlanter() {

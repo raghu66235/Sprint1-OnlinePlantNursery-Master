@@ -2,7 +2,11 @@ package com.sprint1.plantnursery.controller;
 
 import java.util.List;
 
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -20,9 +24,9 @@ import com.sprint1.plantnursery.exceptions.UserNotFoundException;
 import com.sprint1.plantnursery.service.ICustomerService;
 
 /*Controller Class for Customer Controller
-Author : Saurabh Pawar
-*/
 
+*/
+@CrossOrigin(origins="http://localhost:3000")
 @RestController
 @RequestMapping("/customers") // Request Mapping tells which URL will initiate what method
 public class CustomerController {
@@ -39,14 +43,16 @@ public class CustomerController {
 	 * @RequestBody: It used to bind the HTTP request/response body with a domain
 	 *               object in method parameter or return type. 
 	 *               
-	 * Created By-Saurabh Pawar 
+	 * Created Raghuram-Arigela
 	 * 
 	 ****************************/
 
 	@PostMapping("/addCustomer")
 	public ResponseEntity<Customer> addNewCustomer(@RequestBody Customer customer) {
-		customerService.addNewCustomer(customer);
-		return new ResponseEntity<Customer>(customer, HttpStatus.CREATED);
+		//customerService.addNewCustomer(customer);
+		//return new ResponseEntity<Customer>(customer, HttpStatus.CREATED);// by Hussain-13
+		Customer customer1=customerService.addNewCustomer(customer);
+		return new ResponseEntity<Customer>(customer1, HttpStatus.CREATED);
 	}
 
 // =========================================================================================================================================	
@@ -57,15 +63,18 @@ public class CustomerController {
 	 * @returns customers It returns String type message 
 	 * @PutMapping: It is used to handle the HTTP POST requests matched with given URI expression.
 	 * @RequestBody: It used to bind the HTTP request/response body with a domain object in method parameter or return type.
-	 * Created By-Saurabh Pawar
+	 * Created By-Arigela Raghuram
 	 * 
 	 ****************************/	
 
 	@PutMapping({ "/updateCustomer/id/{customerId}" })
 	public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer, @PathVariable int customerId)
 			throws UserNotFoundException {
-		customerService.updateCustomer(customer, customerId);
-		return new ResponseEntity<Customer>(customer, HttpStatus.ACCEPTED);
+		//customerService.updateCustomer(customer, customerId);
+		//return new ResponseEntity<Customer>(customer, HttpStatus.ACCEPTED);// by Hussain-13
+		//new Code
+		Customer customer1=customerService.updateCustomer(customer, customerId);
+		return new ResponseEntity<Customer>(customer1, HttpStatus.ACCEPTED);
 	}
 
 // ========================================================================================================================================		
@@ -76,7 +85,7 @@ public class CustomerController {
 	 * @returns Customer It returns Customer  with details
 	 * @GetMapping: It is used to handle the HTTP POST requests matched with given URI expression.
 	 * @RequestBody: It used to bind the HTTP request/response body with a domain object in method parameter or return type.
-	 * Created By: Saurabh Pawar
+	 * Created By: Arigela Raghuram
 	 * 
 	 ****************************/
 	@GetMapping("/viewAllCustomers")
@@ -92,9 +101,9 @@ public class CustomerController {
 	 * @returns Customer It returns Customer  with details
 	 * @GetMapping: It is used to handle the HTTP POST requests matched with given URI expression.
 	 * @RequestBody: It used to bind the HTTP request/response body with a domain object in method parameter or return type.
-	 * Created By: Saurabh Pawar
+	 * Created By:Arigela Raghuram
 	 * 
-	 ****************************/
+	 ****************************/ 
 	
 	@GetMapping("/viewCustomer/id/{customerId}")
 	public ResponseEntity<Customer> viewCustomer(@PathVariable Integer customerId) throws UserNotFoundException {
@@ -108,14 +117,17 @@ public class CustomerController {
 	 * @returns customer It returns String type message 
 	 * @DeleteMapping: It is used to handle the HTTP Delete requests matched with given URI expression.
 	 * @RequestBody: It used to bind the HTTP request/response body with a domain object in method parameter or return type.
-	 * Created By: Saurabh Pawar
+	 * Created By: Arigela Raghuram
 	 * 
 	 ****************************/
 	
 	@DeleteMapping("/deleteCustomer/id/{customerId}")
-	public ResponseEntity<Customer> deleteById(@PathVariable Integer customerId) throws UserNotFoundException {
-
-		return new ResponseEntity<Customer>(customerService.deleteCustomer(customerId), HttpStatus.OK);
+	//public ResponseEntity<Customer> deleteById(@PathVariable Integer customerId) throws UserNotFoundException {
+	//return new ResponseEntity<Customer>(customerService.deleteCustomer(customerId), HttpStatus.OK);
+	// Hussain-13
+	public ResponseEntity<String> deleteById(@PathVariable Integer customerId) throws UserNotFoundException {	
+		customerService.deleteCustomer(customerId);
+		return new ResponseEntity<String>("Customer deleted with id : "+customerId,HttpStatus.OK);
 	}
 	
 // ========================================================================================================================================
@@ -123,18 +135,25 @@ public class CustomerController {
 	/****************************
 	 * Method: validate Customer
 	 * Description: It is used to validate into Customer table
+	 * @throws UserNotFoundException 
 	 * @returns Customer It returns Customer with details
 	 * @GetMapping: It is used to handle the HTTP POST requests matched with given URI expression.
 	 * @RequestBody: It used to bind the HTTP request/response body with a domain object in method parameter or return type.
-	 * Created By: Saurabh Pawar 
+	 * Created By: Arigela Raghuram 
 	 * 
 	 ****************************/
-
-	@GetMapping(path = "/validateCustomer/{username}/{password}")
-	public ResponseEntity<Customer> validateCustomer(@PathVariable Customer customer, @PathVariable String username,
-			@PathVariable String password) {
-		Customer customer1 = customerService.validateCustomer(customer, username, password);
-
+	//code changed - in service also
+	@GetMapping(path = "/validateCustomer/{customerId}/{username}/{password}")// Code and logic // by Hussain-13 
+	public ResponseEntity<Customer> validateCustomer(@PathVariable("customerId") int customerId, @PathVariable("username") String username,
+			@PathVariable("password") String password) throws UserNotFoundException {
+		Customer customer1 = customerService.validateCustomer(customerId, username, password);
+		if(customer1==null) {// not required (null condition is there in Service)//this condition only for http status
+			return new ResponseEntity<Customer>(customer1, HttpStatus.NOT_FOUND);
+		}
 		return new ResponseEntity<Customer>(customer1, HttpStatus.OK);
 	}
 }
+
+
+
+

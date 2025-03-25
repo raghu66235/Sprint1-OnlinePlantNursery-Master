@@ -10,32 +10,32 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /*Controller Class for Order Controller
-Created By: Sakshi Shah
+Created By: Arigela Raghuram
 */
 
 @Entity
 @Table(name = "ordertable")
 public class OrderTable {
 	@Id
-	@GeneratedValue
+	//@GeneratedValue
 	private Integer bookingId;
 	private LocalDate orderDate;
 	private String transactionMode;
 	private int quantity;
 	private double price;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	private Planter planter;
+//	@ManyToOne(fetch=FetchType.LAZY)
+//	private Planter planter;
 	
 	public OrderTable() {
 
 	}
 
-	public Integer getBookingOrderId() {
+	public Integer getbookingId() {
 		return bookingId;
 	}
 
-	public void setBookingOrderId(Integer bookingOrderId) {
+	public void setgetbookingId(Integer bookingOrderId) {
 		this.bookingId = bookingOrderId;
 	}
 

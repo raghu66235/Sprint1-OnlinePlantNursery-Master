@@ -12,7 +12,7 @@
 	
 ------------------------------------GET----------------------------------------------
 1. Get Order By Id : Method "GET"
-2. URL: http://localhost:9092/Orders/viewOrder/id/3
+2. URL: http://localhost:9092/Orders/viewOrder/id/14
 
 1. Get All Orders : Method "GET"
 2. URL: http://localhost:9092/Orders/getAllOrders
@@ -34,5 +34,5 @@
 	
 ------------------------------------DELETE----------------------------------------------
 1. Delete Order : Method "DELETE"
-2. URL:	http://localhost:9092/Orders/deleteOrder/id/1002
+2. URL:	http://localhost:9092/Orders/deleteOrder/id/14
 

@@ -7,12 +7,12 @@ import java.util.List;
 import com.sprint1.plantnursery.entity.Admin;
 
 /*Controller Class for Customer Controller
-Author : Nikhil Bandgad
+Author : Arigela Raghuram
 */
 
 public interface IAdminService {
 	public Admin addAdmin(Admin admin);
-	public Admin removeAdmin(Admin admin);
-	public Admin validateAdmin(String adminId)throws UserNotFoundException;
-	public List<Admin> getAllUsers();
+	public void removeAdmin(int adminId) throws UserNotFoundException;
+	public Admin validateAdmin(int adminId) throws UserNotFoundException;
+	public List<Admin> getAllUsers() throws UserNotFoundException;
 }

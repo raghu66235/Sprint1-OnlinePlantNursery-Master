@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /*Controller Class for Customer Controller
-Author : Nikhil Bandgad
+Author :Arigela Raghuram
 */
 
 @Entity
@@ -33,7 +33,6 @@ public class Admin {
 	public void setAdminUsername(String adminUsername) {
 		this.adminUsername = adminUsername;
 	}
-
 	public String getAdminPassword() {
 		return adminPassword;
 	}

@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>Capg-Sprint1-PlantNursery</artifactId>
+	<artifactId>Capg-Sprint1-PlantNursery-Master</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Capg-Sprint1-PlantNursery</name>
+	<name>Capg-Sprint1-PlantNursery-Master</name>
 	<description>Online Plant Nursery Project Useing SpringBoot</description>
 	<properties>
 		<java.version>11</java.version>

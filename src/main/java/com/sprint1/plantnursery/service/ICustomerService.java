@@ -8,7 +8,7 @@ import com.sprint1.plantnursery.entity.Customer;
 import com.sprint1.plantnursery.exceptions.UserNotFoundException;
 
 /*Controller Class for Customer Controller
-Author : Saurabh Pawar
+Author : Arigela Raghuram
 */
 
 @Service
@@ -18,5 +18,5 @@ public interface ICustomerService {
 	Customer getCustomer(int customerId) throws UserNotFoundException;
 	Customer updateCustomer(Customer customer,int customerId) throws UserNotFoundException;
 	List<Customer> getAllCustomers() throws UserNotFoundException;
-	Customer validateCustomer(Customer customer,String username, String password);
+	Customer validateCustomer(int customerId,String username, String password)throws UserNotFoundException;
 }

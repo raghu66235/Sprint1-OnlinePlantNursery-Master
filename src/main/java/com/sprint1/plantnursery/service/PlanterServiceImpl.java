@@ -15,7 +15,7 @@ import com.sprint1.plantnursery.exceptions.InsufficientStockException;
 import com.sprint1.plantnursery.repository.IPlanterRepository;
 
 /*Controller Class for Planter Controller
-Created By: Pruthvi Tilwankar
+Created By: Arigela Raghuram
 */
 
 @Service
@@ -28,16 +28,16 @@ public class PlanterServiceImpl implements IPlanterService {
 
 	@Override
 	public Planter addPlanter(Planter planter) {
-		if (planter.getPlanterId() == 0)
+		/*if (planter.getPlanterId() == 0)
 			return iplanterrepository.save(planter);
 		Optional<Planter> optionalPlanter = iplanterrepository.findById(planter.getPlanterId()); 
 		if (optionalPlanter.isPresent()) {
 			Planter p = optionalPlanter.get();
 			p.setPlanterStock(p.getPlanterStock()+1);
-			return iplanterrepository.save(p);
-		}else {
+			return iplanterrepository.save(p); // unwanted extra code  - by Hussain-13
+		}else {*/
 			return iplanterrepository.save(planter);
-		}
+		//}
 	}
 
 	@Override
@@ -46,9 +46,9 @@ public class PlanterServiceImpl implements IPlanterService {
 		if (optionalPlanter.isPresent()) {
 			Planter p = optionalPlanter.get();
 			p.setPlanterStock(p.getPlanterStock()-1);
-			if (p.getPlanterStock() < 0)
-				throw new InsufficientStockException("Stock is insufficient");
-			iplanterrepository.save(p);
+			if (p.getPlanterStock() < 0) {
+				throw new InsufficientStockException("Stock is insufficient");}
+			iplanterrepository.delete(p);
 		}
 		return optionalPlanter.orElseThrow(() -> new ResourceNotFoundException("The planter with given id does not exist"));
 	}
@@ -58,26 +58,64 @@ public class PlanterServiceImpl implements IPlanterService {
 		Optional<Planter> optionalPlanter =  iplanterrepository.findById(id); 
 		return optionalPlanter.orElseThrow(() -> new ResourceNotFoundException("Planter does not exist with given id"));
 	}
-	
 	@Override
-	public Planter updatePlanter(Planter planter) {
+	/*public Planter updatePlanter(Planter planter) {
 		Optional<Planter> optionalPlanter = iplanterrepository.findById(planter.getPlanterId());  
 		if (optionalPlanter.isPresent()) {
-			iplanterrepository.save(planter);
+			iplanterrepository.save(planter);*/  // By Hussain-13
+	public Planter updatePlanter(Planter planter,int planterId) {
+		Optional<Planter> optionalPlanter = iplanterrepository.findById(planterId);  
+		if (optionalPlanter.isPresent()) {
+			Planter planter1=optionalPlanter.get();
+			
+			if(planter.getPlanterheight()!=0) {
+				planter1.setPlanterheight(planter.getPlanterheight());
+			}
+			if(planter.getPlanterCapacity()!=0) {
+				planter1.setPlanterCapacity(planter.getPlanterCapacity());
+			}
+			if(planter.getDrainageHoles()!=0) {
+				planter1.setDrainageHoles(planter.getDrainageHoles());
+			}
+			if(planter.getPlanterColor()!=null) {
+				planter1.setPlanterColor(planter.getPlanterColor());
+			}
+			if(planter.getPlanterShape()!=null) {
+				planter1.setPlanterShape(planter.getPlanterShape());
+			}
+			if(planter.getPlanterStock()!=0) {
+				planter1.setPlanterStock(planter.getPlanterStock());
+			}
+			if(planter.getPlanterCost()!=0) {
+				planter1.setPlanterCost(planter.getPlanterCost());
+			}
 		}
-		return iplanterrepository.findById(planter.getPlanterId()).orElseThrow(() -> new ResourceNotFoundException("Planter with given id does not exist. So, update can not be done"));
+		return optionalPlanter.orElseThrow(() -> new ResourceNotFoundException("Planter with given id does not exist. So, update can not be done"));
 	}
 
 	@Override
 	public List<Planter> viewAllPlanters() {
-		return iplanterrepository.findAll();
+		//return iplanterrepository.findAll(); //Hussain-13
+		List<Planter> list=iplanterrepository.findAll();
+		if(list.isEmpty()) {
+			throw new ResourceNotFoundException("No data available");
+		}
+		return list;
 	}
 
 	@Override
 	public List<Planter> viewAllPlanters(double minCost, double maxCost) {
 		List<Planter> allPlanters = iplanterrepository.findAll();
+		List<Planter> displayPlanter=null;
 		List<Planter> requiredPlanters = allPlanters.stream().filter((p) -> p.getPlanterCost() >minCost && p.getPlanterCost() < maxCost).collect(Collectors.toList());
-		return requiredPlanters;
+		if(requiredPlanters.size()==0) {
+			throw new ResourceNotFoundException("No details found in the database between range "+minCost+ "and "+maxCost);
+		}				    //Hussain-13  - Exception added
+		else {
+			displayPlanter=requiredPlanters; 
+		}
+		return displayPlanter;
+		
 	}
 
 }

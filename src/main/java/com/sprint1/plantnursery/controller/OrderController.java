@@ -1,9 +1,11 @@
 package com.sprint1.plantnursery.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,12 +15,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.sprint1.plantnursery.entity.OrderTable;
+import com.sprint1.plantnursery.entity.Plant;
+import com.sprint1.plantnursery.exceptions.OrderIdNotFoundException;
+import com.sprint1.plantnursery.exceptions.PlantIdNotFoundException;
 import com.sprint1.plantnursery.service.IOrderService;
 
 /*Controller Class for Order Controller
-Created By: Sakshi Shah
+Created By: Arigela Raghuram
 */
-
+@CrossOrigin(origins="http://localhost:3000")
 @RestController
 @RequestMapping("/Orders")
 public class OrderController{
@@ -38,13 +43,17 @@ public class OrderController{
 	
 	@PostMapping("/addOrder")
 	public ResponseEntity<OrderTable> addOrder(@RequestBody OrderTable order) {
+		order=orderService.addOrder(order);		
 		return new ResponseEntity<OrderTable>(orderService.addOrder(order), HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/deleteOrder/id/{bookingId}")
-	public ResponseEntity<String> deleteOrder(@PathVariable int bookingId)  {
-		orderService.deleteOrder(bookingId);
-		return new ResponseEntity<String>("The order with id " + bookingId + " got deleted.", HttpStatus.OK);
+	/*public ResponseEntity<OrderTable> deleteOrder(@PathVariable int bookingId) throws OrderIdNotFoundException{
+		//logger.trace("deleting the whole plant");	
+		return new ResponseEntity<OrderTable>(orderService.deleteOrder(bookingId), HttpStatus.OK); }*/   //Arigela Raghuram
+	public ResponseEntity<String> deleteOrder(@PathVariable int bookingId) throws OrderIdNotFoundException{	
+		orderService.deleteOrder(bookingId); 
+		return new ResponseEntity<String>("Order Deleted with is : "+bookingId, HttpStatus.OK);
 	}
 	
 	@GetMapping("/viewOrder/id/{bookingId}")
@@ -73,11 +82,12 @@ public class OrderController{
 		 * @RequestBody: It is used to bind HTTP request body with a domain object in method parameter or return type
 	     */
 	
-	@PutMapping({"/updateOrder/id/{bookingId}"})
+	@PutMapping("/updateOrder/id/{bookingId}")
 	public ResponseEntity<OrderTable> updateOrder(@RequestBody OrderTable order, @PathVariable int bookingId) {
 		// logger.trace("updating the whole plant having id "+ id);  
-		orderService.updateOrder(order, bookingId);
-		return new ResponseEntity<OrderTable>(order, HttpStatus.ACCEPTED);
+		//orderService.updateOrder(order, bookingId);
+		//return new ResponseEntity<OrderTable>(order, HttpStatus.ACCEPTED); 
+		OrderTable printOrder=orderService.updateOrder(order, bookingId);
+		return new ResponseEntity<OrderTable>(printOrder, HttpStatus.ACCEPTED);
 	}
-	
 }

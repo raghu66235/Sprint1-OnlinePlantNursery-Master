@@ -1,7 +1,7 @@
 package com.sprint1.plantnursery.exceptions;
 
 /*Controller Class for Customer Controller
-Author : Nikhil Bandgad
+Author : Arigela Raghuram
 */
 
 public class UserNotFoundException extends Exception{

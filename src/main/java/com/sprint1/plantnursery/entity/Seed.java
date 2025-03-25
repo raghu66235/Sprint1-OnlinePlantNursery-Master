@@ -1,5 +1,7 @@
 package com.sprint1.plantnursery.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -8,12 +10,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /*Controller Class for Seed Controller
-Created By : Smita Pradhan 
+Created By :Arigela Raghuram
 */
 
 @Entity
 @Table(name="seed")
-public class Seed 
+public class Seed implements Serializable
 {
 	@Id
 	@GeneratedValue
@@ -29,8 +31,7 @@ public class Seed
 	private double seedsCost;
 	private int seedsPerPacket;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	private Planter planter;
+	
 
 	public int getSeedId() {
 		return id;

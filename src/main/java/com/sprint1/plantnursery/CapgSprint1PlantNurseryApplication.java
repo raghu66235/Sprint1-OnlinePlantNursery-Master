@@ -8,7 +8,7 @@ public class CapgSprint1PlantNurseryApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CapgSprint1PlantNurseryApplication.class, args);
-		System.out.println("Server Started");
+		System.out.println("Plant Nuresry Server Started");
 	}
 
 }

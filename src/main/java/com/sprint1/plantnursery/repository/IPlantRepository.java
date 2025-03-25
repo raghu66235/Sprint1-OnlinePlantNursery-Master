@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.sprint1.plantnursery.entity.Plant;
 
 /*Repository Class for Plant
-Author : Disha Kale
+Author : Arigela Raghuram
 */
 
 	@Repository

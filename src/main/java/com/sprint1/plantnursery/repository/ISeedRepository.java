@@ -9,7 +9,7 @@ import com.sprint1.plantnursery.entity.Seed;
 
 
 /*Controller Class for Seed Controller
-Created By : Smita Pradhan 
+Created By : Arigela Raghuram
 */
 
 public interface ISeedRepository extends JpaRepository<Seed, Integer>{

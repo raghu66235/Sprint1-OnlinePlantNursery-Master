@@ -1,12 +1,16 @@
-------------------------------------POST----------------------------------------------
+-
+mysql>create database nursery;
+mysql> use nursery;
+
+-----------------------------------POST----------------------------------------------
 1. Add User : Method "POST"
 2. URL: http://localhost:9092/loginController/addUser
 3. INPUT: 
    Body -> Raw -> JSON
    {
    "adminId" : 101,
-   "adminUsername" : "Sakshi",
-   "adminPassword" : "Sakshi@123"
+   "adminUsername" : "ram",
+   "adminPassword" : "ram@123"
 	}
 	
 ------------------------------------GET----------------------------------------------
@@ -15,7 +19,7 @@
 
 ------------------------------------DELETE----------------------------------------------
 1. Delete User : Method "DELETE"
-2. URL: http://localhost:9092/loginController/removeUser
+2. URL: http://localhost:9092/loginController/removeUser/106
 3. INPUT: 
    Body -> Raw -> JSON  
 	{

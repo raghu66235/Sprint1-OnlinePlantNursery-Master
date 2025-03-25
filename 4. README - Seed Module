@@ -1,3 +1,4 @@
+
 ------------------------------------POST----------------------------------------------
 1. Add Seed : Method "POST"
 2. URL: http://localhost:9092/seeds/addSeeds
@@ -17,7 +18,7 @@
 	
 ------------------------------------GET----------------------------------------------
 1. Get Seed By Id : Method "GET"
-2. URL: http://localhost:9092/seeds/seeds/id/0
+2. URL: http://localhost:9092/seeds/getseeds/5
 
 1. Get All Seeds : Method "GET"
 2. URL: http://localhost:9092/seeds/getSeeds
@@ -25,7 +26,7 @@
 ------------------------------------UPDATE----------------------------------------------
 
 1. Update Seed : Method "PUT"
-2. URL: http://localhost:9092/seeds/seeds/id/8
+2. URL: http://localhost:9092/seeds/updateseeds/5
 3. INPUT: 
    Body -> Raw -> JSON
    {
@@ -43,5 +44,5 @@
 	
 ------------------------------------DELETE----------------------------------------------
 1. Delete Seed : Method "DELETE"
-2. URL:	http://localhost:9092/seeds/seeds/id/8
+2. URL:	http://localhost:9092/seeds/deleteseeds/6
 

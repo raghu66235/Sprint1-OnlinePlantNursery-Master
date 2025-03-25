@@ -1,7 +1,7 @@
 package com.sprint1.plantnursery.exceptions;
 
 /*Exception Class for Plant
-Author : Disha Kale
+Author : Arigela Raghuram
 */
 
 public class PlantIdNotFoundException extends RuntimeException {
